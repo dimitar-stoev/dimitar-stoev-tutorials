@@ -1,0 +1,65 @@
+<form [formGroup]="clientForm" (ngSubmit)="submitForm()">
+  <div>
+    <label for="name">Name</label>
+    <input type="text" id="name" formControlName="name">
+    <span *ngIf="nameMessage | async as msg" class="error">
+      {{ msg }}
+    </span>
+  </div>
+  <div>
+    <label for="email">Email</label>
+    <input type="text" id="email" formControlName="email">
+    <span *ngIf="emailMessage | async as msg" class="error">
+      {{ msg }}
+    </span>
+  </div>
+  <div>
+    <label for="phone">Phone</label>
+    <input type="number" id="phone" formControlName="phone">
+    <span *ngIf="phoneMessage | async as msg">
+      {{ msg }}
+    </span>
+  </div>
+  <ng-container formGroupName="address">
+    <ng-container *ngFor="let item of address.controls; index as index">
+      <ng-container [formGroupName]="index">
+        <div class="form-address">
+          <div>
+            <label for="street">Street</label>
+            <input type="text" id="street" formControlName="street">
+          </div>
+          <div>
+            <label for="city">City</label>
+            <input type="text" id="city" formControlName="city">
+          </div>
+          <div>
+            <label for="state">State</label>
+            <input type="text" id="state" formControlName="state">
+          </div>
+          <div>
+            <label for="zip">Zip</label>
+            <input type="text" id="zip" formControlName="zip">
+          </div>
+          <div>
+            <label for="country">Country</label>
+            <input type="text" id="country" formControlName="country">
+          </div>
+          <div>
+            <button type="button" (click)="removeAddress(index)">Remove Address</button>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+    <div>
+      <button type="button" (click)="addAddress()">Add Address</button>
+    </div>
+  </ng-container>
+  <div>
+    <label for="note">Note</label>
+    <input type="text" id="note" formControlName="note">
+  </div>
+  <div class="form-actions">
+    <button type="button" (click)="secondaryActionClicked()">{{secondaryActionTitle$ | async}}</button>
+    <button type="submit" [disabled]="!clientForm.valid">Save</button>
+  </div>
+</form>

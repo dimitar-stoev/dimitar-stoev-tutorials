@@ -1,0 +1,35 @@
+<nav>
+  <ul>
+    <li>
+      <a [routerLink]="['/clients','create']">Create</a>
+    </li>
+  </ul>
+</nav>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Address</th>
+      <th>Phone</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let client of clients">
+      <td>{{client.id}}</td>
+      <td>{{client.name}}</td>
+      <td>
+       <div *ngFor="let address of client.address">
+        {{address.street}} {{address.city}} {{address.state}} {{address.zip}} {{address.country}}
+       </div>
+      </td>
+      <td>{{client.phone}}</td>
+      <td>
+        <a [routerLink]="['/clients', client.id, 'edit']">Edit</a>
+        <button (click)="deleteClient(client.id)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
